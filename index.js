@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var server;
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -21,9 +22,26 @@ app.get('/:seconds', function (req, res) {
   }, seconds * 1000);
 });
 
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
-});
+exports.start = function(cb) {
+  server = app.listen(3000, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+    if (cb) {
+      cb();
+    }
+    console.log('Example app listening at http://%s:%s', host, port);
+  });
+}
+
+exports.close = function(cb) {
+  if (server) {
+    server.close(cb);
+  } else {
+    cb();
+  }
+}
+
+if (module.id === require.main.id) {
+  exports.start()
+}
