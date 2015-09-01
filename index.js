@@ -8,7 +8,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/:seconds', function (req, res) {
+app.all('/:seconds', function (req, res) {
   var seconds = parseFloat(req.params.seconds);
 
   if (isNaN(seconds)) {
