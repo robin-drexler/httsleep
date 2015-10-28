@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var redirect = require('./redirect');
 var server;
 
 app.use(function(req, res, next) {
@@ -11,7 +12,6 @@ app.use(function(req, res, next) {
 app.all('/:seconds', function (req, res) {
   var MAX_SECONDS_DELAY = 120;
   var seconds = parseFloat(req.params.seconds);
-  var redirectUrl = req.query.redirectUrl
 
   if (isNaN(seconds)) {
     res.status(400)
@@ -27,8 +27,8 @@ app.all('/:seconds', function (req, res) {
 
 
   setTimeout(function() {
-    if (redirectUrl) {
-      return res.redirect(301, redirectUrl);
+    if (redirect.shouldRedirect(req)) {
+      return res.redirect(301, redirect.getRedirectUrl(req));
     }
 
     res.send('OK!');
