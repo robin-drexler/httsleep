@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jasmine"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Robin Drexler",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.13.3",
     "request": "^2.61.0"
