@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./node_modules/.bin/pm2 start app.js -i max --attach",
     "test": "jasmine"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.3",
+    "pm2": "^2.6.1",
     "request": "^2.61.0"
   },
   "devDependencies": {
