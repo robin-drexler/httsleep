@@ -4,6 +4,8 @@ var redirect = require('./redirect');
 var proxy = require('./proxy');
 var server;
 
+const port = process.env.PORT || 3000;
+
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
@@ -57,7 +59,7 @@ app.all('/:seconds', function(req, res) {
 });
 
 exports.start = function(cb) {
-  server = app.listen(3000, function() {
+  server = app.listen(port, function() {
     var host = server.address().address;
     var port = server.address().port;
     if (cb) {
