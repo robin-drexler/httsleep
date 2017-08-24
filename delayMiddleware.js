@@ -1,6 +1,6 @@
-module.exports = (req, res, next) => {
+module.exports = (req, res, next, seconds) => {
   var MAX_SECONDS_DELAY = 120;
-  var seconds = parseFloat(req.params.seconds);
+  var seconds = parseFloat(seconds);
 
   if (isNaN(seconds)) {
     res

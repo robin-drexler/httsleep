@@ -17,7 +17,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.all('/:seconds', delayMiddleware, function(req, res) {
+app.param('seconds', delayMiddleware);
+
+app.all('/:seconds', function(req, res) {
   if (redirect.shouldRedirect(req)) {
     return res.redirect(301, redirect.getRedirectUrl(req));
   }
