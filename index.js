@@ -4,6 +4,8 @@ var redirect = require('./redirect');
 var proxy = require('./proxy');
 var server;
 
+const delayMiddleware = require('./delayMiddleware');
+
 const port = process.env.PORT || 3000;
 
 app.use(function(req, res, next) {
@@ -15,47 +17,16 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.all('/:seconds', function(req, res) {
-  var MAX_SECONDS_DELAY = 120;
-  var seconds = parseFloat(req.params.seconds);
-
-  if (isNaN(seconds)) {
-    res
-      .status(400)
-      .send(
-        '<strong>' +
-          req.params.seconds +
-          '</strong>' +
-          'are no valid seconds. Try something like <strong>3</strong>'
-      );
-    return;
+app.all('/:seconds', delayMiddleware, function(req, res) {
+  if (redirect.shouldRedirect(req)) {
+    return res.redirect(301, redirect.getRedirectUrl(req));
   }
 
-  if (seconds > MAX_SECONDS_DELAY) {
-    res
-      .status(400)
-      .send(
-        '<strong>' +
-          req.params.seconds +
-          '</strong>' +
-          'is too long. Try something like <strong>' +
-          MAX_SECONDS_DELAY +
-          '</strong>'
-      );
-    return;
+  if (proxy.shouldProxy(req)) {
+    return proxy.proxy(req, res, proxy.getProxyUrl(req));
   }
 
-  setTimeout(function() {
-    if (redirect.shouldRedirect(req)) {
-      return res.redirect(301, redirect.getRedirectUrl(req));
-    }
-
-    if (proxy.shouldProxy(req)) {
-      return proxy.proxy(req, res, proxy.getProxyUrl(req));
-    }
-
-    res.send('OK!');
-  }, seconds * 1000);
+  res.send('OK!');
 });
 
 exports.start = function(cb) {
