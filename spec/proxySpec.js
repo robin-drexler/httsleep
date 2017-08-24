@@ -14,4 +14,16 @@ describe('proxy', function() {
       done();
     });
   });
+
+  it('adds correct status code', function(done) {
+    const proxyUrl = 'https://httpbin.org/status/418';
+
+    request(`http://localhost:3000/0?proxyUrl=${proxyUrl}`, function(
+      error,
+      response
+    ) {
+      expect(response.statusCode).toEqual(418);
+      done();
+    });
+  });
 });

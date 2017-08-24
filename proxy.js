@@ -23,7 +23,7 @@ module.exports = {
           return res.send();
         }
         res.set(response.headers);
-        return res.send(response.body);
+        return res.status(response.statusCode).send(response.body);
       }
     );
   }
