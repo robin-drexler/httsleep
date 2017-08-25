@@ -15,7 +15,8 @@ module.exports = (req, res, next) => {
   request(
     {
       url: proxyUrl,
-      headers
+      headers,
+      encoding: null
     },
     (e, response) => {
       if (e) {
