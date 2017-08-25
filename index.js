@@ -17,13 +17,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.param('seconds', delayMiddleware);
-app.use(proxyMiddleware);
-app.use(redirectMiddleware);
-
-app.all('/:seconds', (req, res) => {
-  res.send('OK!');
-});
+app.all(
+  '/:seconds',
+  delayMiddleware,
+  proxyMiddleware,
+  redirectMiddleware,
+  (req, res) => {
+    res.send('OK!');
+  }
+);
 
 exports.start = cb => {
   server = app.listen(port, () => {
