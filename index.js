@@ -1,10 +1,10 @@
 var express = require('express');
 var app = express();
-var redirect = require('./redirect');
-var proxy = require('./proxy');
 var server;
 
 const delayMiddleware = require('./delayMiddleware');
+const proxyMiddleware = require('./proxyMiddleware');
+const redirectMiddleware = require('./redirectMiddleware');
 
 const port = process.env.PORT || 3000;
 
@@ -18,16 +18,10 @@ app.use(function(req, res, next) {
 });
 
 app.param('seconds', delayMiddleware);
+app.use(proxyMiddleware);
+app.use(redirectMiddleware);
 
 app.all('/:seconds', function(req, res) {
-  if (redirect.shouldRedirect(req)) {
-    return res.redirect(301, redirect.getRedirectUrl(req));
-  }
-
-  if (proxy.shouldProxy(req)) {
-    return proxy.proxy(req, res, proxy.getProxyUrl(req));
-  }
-
   res.send('OK!');
 });
 
