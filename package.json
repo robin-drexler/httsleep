@@ -8,8 +8,8 @@
     "test": "jasmine",
     "test:watch": "nodemon --exec jasmine"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Robin Drexler",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.13.3",
     "pm2": "^2.6.1",
