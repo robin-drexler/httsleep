@@ -1,6 +1,6 @@
-var express = require('express');
-var app = express();
-var server;
+const express = require('express');
+const app = express();
+let server;
 
 const delayMiddleware = require('./delayMiddleware');
 const proxyMiddleware = require('./proxyMiddleware');
@@ -8,7 +8,7 @@ const redirectMiddleware = require('./redirectMiddleware');
 
 const port = process.env.PORT || 3000;
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
     'Access-Control-Allow-Headers',
@@ -21,14 +21,14 @@ app.param('seconds', delayMiddleware);
 app.use(proxyMiddleware);
 app.use(redirectMiddleware);
 
-app.all('/:seconds', function(req, res) {
+app.all('/:seconds', (req, res) => {
   res.send('OK!');
 });
 
-exports.start = function(cb) {
-  server = app.listen(port, function() {
-    var host = server.address().address;
-    var port = server.address().port;
+exports.start = cb => {
+  server = app.listen(port, () => {
+    const host = server.address().address;
+    const port = server.address().port;
     if (cb) {
       cb();
     }
@@ -36,7 +36,7 @@ exports.start = function(cb) {
   });
 };
 
-exports.close = function(cb) {
+exports.close = cb => {
   if (server) {
     server.close(cb);
   } else {

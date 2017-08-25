@@ -1,15 +1,14 @@
-var app = require('../../index.js');
+const app = require('../../index.js');
 
-beforeAll(function(done) {
-  app.close(function() {
-    app.start(function() {
-      console.log('STARTED')
+beforeAll(done => {
+  app.close(() => {
+    app.start(() => {
+      console.log('STARTED');
       done();
     });
   });
-
 });
 
-afterAll(function(done) {
+afterAll(done => {
   app.close(done);
 });

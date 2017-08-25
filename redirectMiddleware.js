@@ -1,7 +1,7 @@
-var url = require('url');
+const url = require('url');
 
 const getRedirectUrl = req => {
-  var referer = req.headers['referer'] || '';
+  const referer = req.headers['referer'] || '';
   return url.resolve(referer, req.query.redirectUrl);
 };
 

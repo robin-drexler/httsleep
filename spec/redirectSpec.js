@@ -1,6 +1,6 @@
-var request = require('request');
+const request = require('request');
 
-describe('redirecting to resources integration', function() {
+describe('redirecting to resources integration', () => {
   it('tells not to redirect when there is no redirectUrl in request', function(
     done
   ) {
@@ -9,7 +9,7 @@ describe('redirecting to resources integration', function() {
         url: 'http://localhost:3000/0',
         followRedirect: false
       },
-      function(error, response) {
+      (error, response) => {
         expect(response.statusCode).toEqual(200);
         expect(response.headers['location']).toEqual(undefined);
 
@@ -17,7 +17,7 @@ describe('redirecting to resources integration', function() {
       }
     );
   });
-  it('redirects to given resource if any', function(done) {
+  it('redirects to given resource if any', done => {
     redirectUrl =
       'https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js';
     request(
@@ -25,7 +25,7 @@ describe('redirecting to resources integration', function() {
         url: 'http://localhost:3000/0?redirectUrl=' + redirectUrl,
         followRedirect: false
       },
-      function(error, response) {
+      (error, response) => {
         expect(response.statusCode).toEqual(301);
         expect(response.headers['location']).toEqual(redirectUrl);
 
@@ -46,7 +46,7 @@ describe('redirecting to resources integration', function() {
           referer: 'http://google.com/foo/'
         }
       },
-      function(error, response) {
+      (error, response) => {
         expect(response.statusCode).toEqual(301);
         expect(response.headers['location']).toEqual(
           'http://google.com/foo/bar'
@@ -68,7 +68,7 @@ describe('redirecting to resources integration', function() {
           referer: 'http://yahoo.com/foo/'
         }
       },
-      function(error, response) {
+      (error, response) => {
         expect(response.statusCode).toEqual(301);
         expect(response.headers['location']).toEqual(redirectUrl);
 

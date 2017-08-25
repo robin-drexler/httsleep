@@ -1,7 +1,7 @@
-var request = require('request');
+const request = require('request');
 
-describe('proxy', function() {
-  it('proxies request', function(done) {
+describe('proxy', () => {
+  it('proxies request', done => {
     const proxyUrl = 'https://httpbin.org/headers';
 
     request(`http://localhost:3000/0?proxyUrl=${proxyUrl}`, function(
@@ -15,7 +15,7 @@ describe('proxy', function() {
     });
   });
 
-  it('adds correct status code', function(done) {
+  it('adds correct status code', done => {
     const proxyUrl = 'https://httpbin.org/status/418';
 
     request(`http://localhost:3000/0?proxyUrl=${proxyUrl}`, function(
