@@ -64,7 +64,7 @@ app.get('/', (req, res) => {
     <body>
       <div class="wrapper">
         <header>
-          <h1>😴 httpsleep 😴</h1>
+          <h1>😴 httsleep 😴</h1>
           <h2>
           Delay HTTP requests to test how your app behaves when requests take longer than expected.
           </h2>
