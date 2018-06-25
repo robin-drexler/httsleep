@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./node_modules/.bin/pm2 start index.js -i max --attach",
+    "start": "node index.js",
     "test": "jasmine",
     "test:watch": "nodemon --exec jasmine"
   },
@@ -12,7 +12,6 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.13.3",
-    "pm2": "^2.6.1",
     "request": "^2.61.0"
   },
   "devDependencies": {
