@@ -2,11 +2,12 @@
   "name": "httsleep",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "jasmine",
-    "test:watch": "nodemon --exec jasmine"
+    "start": "bun index.js",
+    "test": "bun test",
+    "test:watch": "bun test --watch"
   },
   "author": "Robin Drexler",
   "license": "MIT",
