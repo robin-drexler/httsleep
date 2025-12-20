@@ -18,4 +18,12 @@ describe("proxy", () => {
     );
     expect(response.status).toEqual(418);
   });
+
+  it("returns 400 for invalid URL", async () => {
+    const proxyUrl = "not-a-valid-url";
+    const response = await fetch(
+      `http://localhost:3000/0?proxyUrl=${proxyUrl}`
+    );
+    expect(response.status).toEqual(400);
+  });
 });
