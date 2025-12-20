@@ -1,33 +1,33 @@
-const express = require('express');
+import express from "express";
+import delayMiddleware from "./delayMiddleware.js";
+import proxyMiddleware from "./proxyMiddleware.js";
+import redirectMiddleware from "./redirectMiddleware.js";
+
 const app = express();
 let server;
-
-const delayMiddleware = require('./delayMiddleware');
-const proxyMiddleware = require('./proxyMiddleware');
-const redirectMiddleware = require('./redirectMiddleware');
 
 const port = process.env.PORT || 3000;
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
 });
 
 app.all(
-  '/:seconds',
+  "/:seconds",
   delayMiddleware,
   proxyMiddleware,
   redirectMiddleware,
   (req, res) => {
-    res.send('OK!');
+    res.send("OK!");
   }
 );
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   const html = `
   <html>
     <head>
@@ -73,7 +73,7 @@ app.get('/', (req, res) => {
           <section>
             <h3>Proxy</h3>
             <div>
-              <a class="example" href="https://httsleep.herokuapp.com/3/?proxyUrl=https://httpbin.org/headers">
+              <a class="example" href="/3/?proxyUrl=https://httpbin.org/headers">
               /:seconds/?proxyUrl=:proxyUrl
               </a>
             </div>
@@ -81,7 +81,7 @@ app.get('/', (req, res) => {
            <section>
             <h3>Redirect</h3>
             <div>
-              <a class="example" href="https://httsleep.herokuapp.com/3/?redirectUrl=https://httpbin.org/headers">
+              <a class="example" href="/3/?redirectUrl=https://httpbin.org/headers">
               /:seconds/?redirectUrl=:redirectUrl
               </a>
             </div>
@@ -89,7 +89,7 @@ app.get('/', (req, res) => {
           <section>
             <h3>Delaying a 200 response</h3>
             <div>
-              <a class="example" href="https://httsleep.herokuapp.com/3">
+              <a class="example" href="/3">
               /:seconds
               </a>
             </div>
@@ -103,18 +103,18 @@ app.get('/', (req, res) => {
   res.send(html);
 });
 
-exports.start = cb => {
+export const start = (cb) => {
   server = app.listen(port, () => {
     const host = server.address().address;
     const port = server.address().port;
     if (cb) {
       cb();
     }
-    console.log('Example app listening at http://%s:%s', host, port);
+    console.log("Example app listening at http://%s:%s", host, port);
   });
 };
 
-exports.close = cb => {
+export const close = (cb) => {
   if (server) {
     server.close(cb);
   } else {
@@ -122,6 +122,8 @@ exports.close = cb => {
   }
 };
 
-if (module.id === require.main.id) {
-  exports.start();
+if (import.meta.main) {
+  start();
 }
+
+export default app;

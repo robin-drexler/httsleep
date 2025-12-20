@@ -1,11 +1,21 @@
-const url = require('url');
+const getRedirectUrl = (req) => {
+  const referer = req.headers["referer"] || "";
+  const redirectUrl = req.query.redirectUrl;
 
-const getRedirectUrl = req => {
-  const referer = req.headers['referer'] || '';
-  return url.resolve(referer, req.query.redirectUrl);
+  // If redirectUrl is already absolute, return it
+  try {
+    new URL(redirectUrl);
+    return redirectUrl;
+  } catch {
+    // It's a relative URL, resolve against referer
+    if (referer) {
+      return new URL(redirectUrl, referer).href;
+    }
+    return redirectUrl;
+  }
 };
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const redirectUrl = req.query.redirectUrl;
 
   if (!redirectUrl) {

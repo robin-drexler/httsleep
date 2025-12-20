@@ -1,4 +1,4 @@
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   const MAX_SECONDS_DELAY = 120;
   const seconds = parseFloat(req.params.seconds);
 
