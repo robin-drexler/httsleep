@@ -1,10 +1,10 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import delayMiddleware from "./delayMiddleware.js";
-import proxyMiddleware from "./proxyMiddleware.js";
-import redirectMiddleware from "./redirectMiddleware.js";
-import corsMiddleware from "./corsMiddleware.js";
+import delayMiddleware from "./middleware/delayMiddleware.js";
+import proxyMiddleware from "./middleware/proxyMiddleware.js";
+import redirectMiddleware from "./middleware/redirectMiddleware.js";
+import corsMiddleware from "./middleware/corsMiddleware.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

@@ -203,18 +203,6 @@
         </article>
 
         <article class="card">
-          <h3>🔀 Delayed Proxy</h3>
-          <p>
-            Fetches a URL and returns its response after the delay. Useful for
-            simulating slow API responses with real data.
-          </p>
-          <code class="pattern">/:seconds?proxyUrl=:url</code>
-          <a class="example-link" href="/3?proxyUrl=https://httpbin.org/json">
-            /3?proxyUrl=https://httpbin.org/json
-          </a>
-        </article>
-
-        <article class="card">
           <h3>↪️ Delayed Redirect</h3>
           <p>
             Redirects to the specified URL after waiting. Perfect for testing
@@ -228,11 +216,29 @@
             /3?redirectUrl=https://httpbin.org/headers
           </a>
         </article>
+
+        <article class="card">
+          <h3>🔀 Delayed Proxy</h3>
+          <p>
+            Fetches a URL and returns its response after the delay. Useful for
+            simulating slow API responses with real data.
+          </p>
+          <code class="pattern">/:seconds?proxyUrl=:url</code>
+          <a class="example-link" href="/3?proxyUrl=https://httpbin.org/json">
+            /3?proxyUrl=https://httpbin.org/json
+          </a>
+        </article>
       </main>
 
       <footer>
-        <p>Made with ❤️ by <a href="https://www.robin-drexler.com">Robin Drexler</a></p>
-        <p><a href="https://github.com/robin-drexler/httsleep">Open Source</a> on GitHub</p>
+        <p>
+          Made with ❤️ by
+          <a href="https://www.robin-drexler.com">Robin Drexler</a>
+        </p>
+        <p>
+          <a href="https://github.com/robin-drexler/httsleep">Open Source</a> on
+          GitHub
+        </p>
       </footer>
     </div>
   </body>
