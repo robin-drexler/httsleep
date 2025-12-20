@@ -1,8 +1,15 @@
+import { validateUrl } from "../utils/validateUrl.js";
+
 export default async (req, res, next) => {
   const proxyUrl = req.query.proxyUrl;
 
   if (!proxyUrl) {
     return next();
+  }
+
+  const validation = validateUrl(proxyUrl);
+  if (!validation.valid) {
+    return res.status(400).json({ error: validation.error });
   }
 
   req.url = proxyUrl;

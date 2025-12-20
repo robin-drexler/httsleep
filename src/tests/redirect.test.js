@@ -51,4 +51,13 @@ describe("redirecting to resources integration", () => {
     expect(response.status).toEqual(301);
     expect(response.headers.get("location")).toEqual(redirectUrl);
   });
+
+  it("returns 400 for invalid redirect URL", async () => {
+    const redirectUrl = "not-a-valid-url";
+    const response = await fetch(
+      `http://localhost:3000/0?redirectUrl=${redirectUrl}`,
+      { redirect: "manual" }
+    );
+    expect(response.status).toEqual(400);
+  });
 });

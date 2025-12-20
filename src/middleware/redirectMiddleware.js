@@ -1,3 +1,5 @@
+import { validateUrl } from "../utils/validateUrl.js";
+
 const getRedirectUrl = (req) => {
   const referer = req.headers["referer"] || "";
   const redirectUrl = req.query.redirectUrl;
@@ -22,5 +24,11 @@ export default (req, res, next) => {
     return next();
   }
 
-  return res.redirect(301, getRedirectUrl(req));
+  const finalUrl = getRedirectUrl(req);
+  const validation = validateUrl(finalUrl);
+  if (!validation.valid) {
+    return res.status(400).json({ error: validation.error });
+  }
+
+  return res.redirect(301, finalUrl);
 };
