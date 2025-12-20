@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>httsleep – Delayed HTTP Responses for Testing</title>
+    <meta
+      name="description"
+      content="A simple service to delay HTTP responses. Perfect for testing timeouts, loading states, and async behavior in your applications."
+    />
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(to right, #701a75, #000000);
+        color: #f0f0f0;
+        line-height: 1.6;
+      }
+
+      .wrapper {
+        margin: 0 auto;
+        max-width: 800px;
+        padding: 2rem 1.5rem 4rem;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        margin: 0 0 0.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      .tagline {
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0 0 1.5rem;
+        font-weight: 400;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.75);
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .cards {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 1.5rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .card h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .card p {
+        margin: 0 0 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.95rem;
+      }
+
+      .example-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Monaco,
+          Consolas, monospace;
+        font-size: 0.9rem;
+        color: #e9d5ff;
+        background: rgba(233, 213, 255, 0.1);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        border: 1px solid rgba(233, 213, 255, 0.25);
+        transition: all 0.2s ease;
+        word-break: break-all;
+      }
+
+      .example-link:hover {
+        background: rgba(233, 213, 255, 0.2);
+        border-color: rgba(233, 213, 255, 0.5);
+        color: #ffffff;
+      }
+
+      .example-link::before {
+        content: "→";
+        opacity: 0.6;
+      }
+
+      .pattern {
+        display: block;
+        font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Monaco,
+          Consolas, monospace;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.75rem;
+      }
+
+      .features {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .feature {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .feature-icon {
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>😴 httsleep</h1>
+        <p class="tagline">Delayed HTTP responses for testing</p>
+        <p class="subtitle">
+          Test how your application handles slow network requests, timeouts, and
+          loading states.
+        </p>
+        <div class="features">
+          <span class="feature">
+            <span class="feature-icon">⚡</span> All HTTP methods
+          </span>
+          <span class="feature">
+            <span class="feature-icon">🔄</span> Proxy & redirect support
+          </span>
+          <span class="feature">
+            <span class="feature-icon">🌐</span> CORS enabled
+          </span>
+        </div>
+      </header>
+
+      <main class="cards">
+        <article class="card">
+          <h3>⏱️ Simple Delay</h3>
+          <p>
+            Returns a 200 OK response after waiting the specified number of
+            seconds. Great for testing loading spinners and timeout handling.
+          </p>
+          <code class="pattern">/:seconds</code>
+          <a class="example-link" href="/3">/3</a>
+        </article>
+
+        <article class="card">
+          <h3>🔀 Delayed Proxy</h3>
+          <p>
+            Fetches a URL and returns its response after the delay. Useful for
+            simulating slow API responses with real data.
+          </p>
+          <code class="pattern">/:seconds?proxyUrl=:url</code>
+          <a class="example-link" href="/3?proxyUrl=https://httpbin.org/json">
+            /3?proxyUrl=https://httpbin.org/json
+          </a>
+        </article>
+
+        <article class="card">
+          <h3>↪️ Delayed Redirect</h3>
+          <p>
+            Redirects to the specified URL after waiting. Perfect for testing
+            redirect handling with network latency.
+          </p>
+          <code class="pattern">/:seconds?redirectUrl=:url</code>
+          <a
+            class="example-link"
+            href="/3?redirectUrl=https://httpbin.org/headers"
+          >
+            /3?redirectUrl=https://httpbin.org/headers
+          </a>
+        </article>
+      </main>
+    </div>
+  </body>
+</html>
