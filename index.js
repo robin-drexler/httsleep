@@ -4,6 +4,7 @@ import { dirname, join } from "path";
 import delayMiddleware from "./delayMiddleware.js";
 import proxyMiddleware from "./proxyMiddleware.js";
 import redirectMiddleware from "./redirectMiddleware.js";
+import corsMiddleware from "./corsMiddleware.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,14 +14,7 @@ let server;
 
 const port = process.env.PORT || 3000;
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(corsMiddleware);
 
 app.all(
   "/:seconds",
